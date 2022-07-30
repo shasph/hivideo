@@ -5,6 +5,8 @@ Jiahao Weng, Chao Zhang, Xi Yang, Haoran Xie. HiVideo: Hierarchical Browsing Int
 
 [[Project]](http://www.jaist.ac.jp/~xie/2022-hivideo)[[Video]](https://www.youtube.com/watch?v=OXTFH_WFQMw)[[ACM]](https://doi.org/10.1145/3532719.3543226)
 
+![hivideo](https://user-images.githubusercontent.com/4180028/181871539-e4f46009-2073-4633-8d8b-f6b86994f15b.jpg)
+
 
 # How to run the project
 1. Install requirements
