@@ -1,0 +1,17 @@
+{
+  "1.0": "",
+  "8.0": "skeleton two-stroke is an interactivestroke correspondence editing systemwith pose features for in-betweening",
+  "16.0": "animation it is tedious andtime-consuming to develop with theconventional tools such as kakani",
+  "23.0": "we propose skeleton two-stroke tointeractively construct strokecorrespondences between characterillustrations in our editing interface",
+  "30.0": "users can easily achieve strokecorrespondences with the help ofskeleton information we will show how to",
+  "39.0": "use the proposed interfacefirst the user can choose two hand-drawncharacter illustrations as system input",
+  "41.0": "for the proposed system sketch two",
+  "47.0": "stroke obtains the initial closed areacorrespondent with the shape features ofinput frames user can apply deep",
+  "53.0": "learning pose estimation to obtain theinitial pose features which should becorrected user can also correct the post",
+  "73.0": "features manually with the proposedediting interfacethen skeleton two-stroke can apply thecorrected post features to closed areacorrespondence",
+  "92.0": "for the modified corresponded areas theuser can adjust the closed areasmanually with the proposed interface",
+  "99.0": "finally we can obtain the strokecorrespondence from the adjustedcorresponded closed areas",
+  "104.0": "more results are shown here",
+  "109.0": "",
+  "114.0": ""
+}

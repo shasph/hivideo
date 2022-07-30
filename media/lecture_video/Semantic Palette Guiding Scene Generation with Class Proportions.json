@@ -1,0 +1,33 @@
+{
+  "Introduction": [
+    "This work will be presented at CVPR this year.In the context of GAN-based generation of complex natural images,methods relying on semantic layoutshave shown improved quality of synthesis,by putting some constraintsover the content of images.These layouts offer a refined controlover the synthesis process,but are difficult to obtain manually.In this work, we introduce Sematinc Palette,a layout synthesis method conditionedon class proportions.This allows to fully automatethe creation of layout image pairs,while controlling their semantic content.Moreover, we extend our frameworkto partial editing of layouts,which opens up interesting applications.",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\28.778749465942383.jpg"
+  ],
+  "Method": [
+    "Let's dig into the method The overall framework is made of a palette generator to select target distributions of semantic classes, a layout synthesizer to translate these histograms into actual layouts, and an image synthesizer to generate corresponding photo-realistic views.We split the training process into three steps: (a) learning palettes distribution from real layouts by fitting a gaussian mixture model. (b) training layout and image synthesis models, first individually and then fine-tuned end-to-end.(c) using synthetic data for downstream applications,like data-augmentationin the training of a segmentation model.We will now detail our major contribution which is the layout synthesizer.",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\87.29553985595703.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\90.17341613769531.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\132.3822479248047.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\180.34683227539062.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\194.7362060546875.jpg"
+  ],
+  "Quantitative result": [
+    "Here are some quantitative resultson urban scene benchmarks. Semantic Palette better capturesthe distribution of real layouts and imagesthan unconditional layout-and-scene GANs. Semantic Palette better follows target proprotions,and produces higher quality layoutsthan conditional baselines. And partial-editing is an efficientdata-augmentation strategy,which results in improved mIoUwhen training segmentation models.",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\214.88133239746094.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\227.3521270751953.jpg"
+  ],
+  "Quantitative results": [
+    "Now , let's have a look at some qualitative results. First, we show semantic interpolationswhere we go from one target distribution to another. Then, latent interpoaltionswhere the target distribution is fixedand we change the noise input.Next, some visualizationof the proposed conditional losses.",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\238.86363220214844.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\246.5379638671875.jpg"
+  ],
+  "Face Editing": [
+    "We also explore applications of partial-editingto manipulation of faces. As you can see we can precisely control indivudal semantic attributes, or a combination of such attributes. Thanks a lot for watching,",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\262.8459167480469.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\265.7237854003906.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\267.6423645019531.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\270.520263671875.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\273.39813232421875.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Semantic Palette Guiding Scene Generation with Class Proportions\\img\\276.2760009765625.jpg"
+  ]
+}

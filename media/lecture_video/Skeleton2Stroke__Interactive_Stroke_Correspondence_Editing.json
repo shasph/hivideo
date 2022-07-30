@@ -1,0 +1,24 @@
+{
+  "Skeleton2Stroke": [
+    "we propose skeleton two-stroke to interactively construct stroke correspondences between character illustrations in our editing interface users can easily achieve stroke correspondences with the help of skeleton information.",
+    "..\\..\\media\\lecture_video\\slide content\\Skeleton2Stroke__Interactive_Stroke_Correspondence_Editing\\img\\16.0.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Skeleton2Stroke__Interactive_Stroke_Correspondence_Editing\\img\\23.0.jpg"
+  ],
+  "Step 1. Frame Selection": [
+    "first the user can choose two hand-drawn character illustrations as system input for the proposed systems.",
+    "..\\..\\media\\lecture_video\\slide content\\Skeleton2Stroke__Interactive_Stroke_Correspondence_Editing\\img\\39.0.jpg"
+  ],
+  "Step 2. Shape Features": [
+    "sketch two stroke obtains the initial closed area correspondent with the shape features of input frames.",
+    "..\\..\\media\\lecture_video\\slide content\\Skeleton2Stroke__Interactive_Stroke_Correspondence_Editing\\img\\41.0.jpg"
+  ],
+  "Step 3. Pose Features (Pose Estimation)": [
+    "user can apply deep learning pose estimation to obtain the initial pose features which should be corrected user can also correct the post features manually with the proposed editing interface,",
+    "..\\..\\media\\lecture_video\\slide content\\Skeleton2Stroke__Interactive_Stroke_Correspondence_Editing\\img\\47.0.jpg",
+    "..\\..\\media\\lecture_video\\slide content\\Skeleton2Stroke__Interactive_Stroke_Correspondence_Editing\\img\\53.0.jpg"
+  ],
+  "Step 4. Area Correspondence": [
+    "user can apply deep learning pose estimation to obtain the initial pose features which should be corrected user can also correct the post features manually with the proposed editing interface,",
+    "..\\..\\media\\lecture_video\\slide content\\Skeleton2Stroke__Interactive_Stroke_Correspondence_Editing\\img\\73.0.jpg"
+  ]
+}
