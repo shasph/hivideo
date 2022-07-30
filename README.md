@@ -3,6 +3,9 @@ HiVideo: Hierarchical Browsing Interface for Educational Videos
 
 Jiahao Weng, Chao Zhang, Xi Yang, Haoran Xie. HiVideo: Hierarchical Browsing Interface for Educational Videos, SIGGRAPH 2022, Poster.
 
+[[Project]](http://www.jaist.ac.jp/~xie/2022-hivideo)[[Video]](https://www.youtube.com/watch?v=OXTFH_WFQMw)[[ACM]](https://doi.org/10.1145/3532719.3543226)
+
+
 # How to run the project
 1. Install requirements
 `pip install -r requirements.txt`
@@ -19,3 +22,26 @@ Change your video path in the python file.
 2. Title and figure extraction
 Change the `yaml & pth` path in the python file.
 `python layout_analyze.py`
+
+Please contact xie@jaist.ac.jp for any comments or requests.
+
+## Citation
+If you use this code for your research, please cite our paper.
+```
+@inproceedings{hivideo-2022,
+author = {Weng, Jiahao and Zhang, Chao and Yang, Xi and Xie, Haoran},
+title = {HiVideo: Hierarchical Browsing Interface for Educational Videos},
+year = {2022},
+isbn = {9781450393614},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3532719.3543226},
+doi = {10.1145/3532719.3543226},
+booktitle = {ACM SIGGRAPH 2022 Posters},
+articleno = {2},
+numpages = {2},
+keywords = {user interface, slide-based video, information retrieval},
+location = {Vancouver, BC, Canada},
+series = {SIGGRAPH '22}
+}
+```
