@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+                {% for video in videos %}
+                <div class="col">
+                    <div class="card shadow-sm" style="height: 100%;">
+                        <div>
+                            <img src="../../media/lecture_video/{{video.title}}.jpg" class="card-img-top" alt="..."
+                            style="height: 235px">
+                            <div style="margin-top: -20px;margin-left: 20px;">
+                                <small class="text-muted">{{video.video_time}}</small>
+                            </div>
+                        </div>  
+                        <div class="card-body">
+                            <a href="{% url 'video:detail' video.id %}" style="text-decoration:none"
+                                class="btn-outline">
+                                <p class="card-text">{{video.title}}</p>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+{% endblock %}

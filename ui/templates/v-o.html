@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block js_content %}
+<script>
+    $(document).ready(function () {
+        $("#carouselExampleDark").find("button.btn-outline-primary").eq(0).prop("disabled", true);
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        $("#customRange").val(0);
+    });
+    function changeSize(event) {
+        if ($(event).val() == 0) {
+            $(event).parent().parent().next().attr("class", "row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3 overflow-auto");
+        } else if ($(event).val() == 1) {
+            $(event).parent().parent().next().attr("class", "row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3 overflow-auto");
+        } else {
+            $(event).parent().parent().next().attr("class", "row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 overflow-auto");
+        }
+    }
+    function timeTOSlide(event) {
+        $(".bd-placeholder-img").each(function (index) {
+            if (Math.round(event.currentTime) == Math.round(Number($(this).attr("src").split("/")[5].split(".jpg")[0]))) {
+                let a = $(this).parent().attr("id").split("c")[1];
+                let b = "." + a;
+                $(b).click();
+            } else {
+                console.log("=========");
+            }
+        });
+    }
+    function gotoPoster() {
+        $("#goto-next").click();
+    }
+    function a(event) {
+        $("#goto-next").click();
+        let b = "." + event;
+        $(b).click();
+    }
+    function showBorders() {
+        if ($("#has_class").hasClass("show-all-borders")) {
+            $("#show-all-borders").find("div").removeClass("show-all-borders");
+            $("#show-all-borders").find("article").removeClass("show-all-borders");
+            $("#show-all-borders").find("a").css("display", "none");
+        } else {
+            $("#show-all-borders").find("div").addClass("show-all-borders");
+            $("#show-all-borders").find("article").addClass("show-all-borders");
+            $("#show-all-borders").find("a").css("display", "block");
+        }
+    }
+    function showSlide(event) {
+        $(event).children().eq(1).fadeIn("fast");
+    }
+    function hideSlide(event) {
+        $(event).children().eq(1).fadeOut("fast");
+    }
+    function showDetails(event) {
+        $("#slide-content span").siblings().remove();
+        var _this = $(event);
+        let which_img = _this.prev().attr("src").split("/");
+        let sub = which_img[5].split(".jpg")[0];
+        which_img = which_img[4] + "/" + which_img[5].split(".")[0];
+        console.log(which_img); /* Support Vector Machines (1) Linear SVMs/263 */
+        $.ajax({
+            url: '/get_text/',
+            type: 'post',
+            data: {
+                'find_text': which_img
+            },
+            success: function (data) {
+                var data = JSON.parse(data)
+                console.log(data);
+                $.each(data, function (key, value) {
+                    console.log(key + ": " + value);
+                    console.log(sub);
+                    if (key == sub) {
+                        let insertHTML = '<p class="card-text">' + value + '</p>';
+                        $("#slide-content span").before(insertHTML);
+                    }
+                });
+            }
+        });
+        imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
+    }
+    function imgShow(outerdiv, innerdiv, bigimg, _this) {
+        var src = _this.prev().attr("src");
+        $(bigimg).attr("src", src);
+        $("#goto-v").attr("src", src);
+        $("<img/>").attr("src", src).on("load", function () {
+            var windowW = $(window).width();
+            var windowH = $(window).height();
+            var realWidth = $(outerdiv).width();
+            var realHeight = $(outerdiv).height();
+            var imgWidth, imgHeight;
+            imgWidth = realWidth;
+            imgHeight = realHeight;
+            var w = (windowW - imgWidth) / 2;
+            var h = (windowH - imgHeight) / 2;
+            $(innerdiv).css({ "top": w, "left": w });
+            $(outerdiv).fadeIn("fast");
+        });
+        $(outerdiv).click(function () {
+            $(this).fadeOut("fast");
+        });
+    }
+    /* function changeImage(src) {
+        let image_path = $(src).attr("src");
+        $(src).parents("#collapseExample").eq(0).prev().prev().children().children().children().attr("src", image_path);
+  
+    }
+    function cutSlides(current) {
+        let to_cut = $(current).parents("div.col").eq(0).siblings();
+        let current_line = $(to_cut).parents("div.container-fluid").eq(0);
+        let a = current_line.after($("#each-line").eq(0).clone());
+        let new_line = a.next().children().eq(2).children(1);
+        new_line.empty();
+        new_line.append(to_cut);
+        let new_image = $(current_line).next().children().eq(2).find("img").eq(0).attr("src");
+        current_line.next().find("img").eq(0).attr("src", new_image);
+        current_line.next().find("button.btn-outline-primary").eq(0).prop("disabled", false);
+    }
+    function merge(current) {
+        let current_line = $(current).parent().parent();
+        let to_merge = $(current).parent().next().children().children();
+        current_line.prev().children().eq(2).children().append(to_merge);
+        current_line.empty()
+        let s = "s"
+    }
+    function delete_line(current) {
+        $(current).parents("div.container-fluid").eq(0).empty();
+    } */
+    function setCurTime(img) {
+        let myVid = $('#video');
+        let timestamp = $(img).attr("src").split("/")[5].split(".")[0];
+        myVid.get(0).currentTime = timestamp;
+        /* alert(timestamp); */
+        /* alert(myVid.get(0).currentTime);
+        myVid.get(0).currentTime=10 */
+    }
+
+
+    /* response.setHeader("Cache-Control", "max-age=31536000, must-revalidate");
+       response.setHeader("Content-Length", file.length() + "");
+       if (fileName.contains(".mp4")) {
+            response.setContentType("video/mpeg4");
+    } */
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div class="position-relative pt-3" style="top: 30%! important; position: fixed! important;">
+    <video id="video" src="16/mp4/?path=media/{{video.v_file}}" width="750px" controls="controls"
+        style="border-style: ridge;" ontimeupdate="timeTOSlide(this)">
+    </video>
+</div>
+
+{% endblock %}

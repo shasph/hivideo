@@ -1,0 +1,359 @@
+{% extends 'base.html' %}
+{% block js_content %}
+<script>
+  $(document).ready(function () {
+    $("#carouselExampleDark").find("button.btn-outline-primary").eq(0).prop("disabled", true);
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+    $("#customRange").val(0);
+  });
+  function changeSize(event) {
+    if ($(event).val() == 0) {
+      $(event).parent().parent().next().attr("class", "row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3 overflow-auto");
+    } else if ($(event).val() == 1) {
+      $(event).parent().parent().next().attr("class", "row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3 overflow-auto");
+    } else {
+      $(event).parent().parent().next().attr("class", "row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 overflow-auto");
+    }
+  }
+  function timeTOSlide(event) {
+    $(".bd-placeholder-img").each(function (index) {
+      if (Math.round(event.currentTime) == Math.round(Number($(this).attr("src").split("/")[5].split(".jpg")[0]))) {
+        let a = $(this).parent().attr("id").split("c")[1];
+        let b = "." + a;
+        $(b).click();
+      } else {
+        console.log("=========");
+      }
+    });
+  }
+  function gotoPoster() {
+    $("#goto-next").click();
+  }
+  function a(event) {
+    $("#goto-next").click();
+    let b = "." + event;
+    $(b).click();
+  }
+  function showBorders() {
+    if ($("#has_class").hasClass("show-all-borders")) {
+      $("#show-all-borders").find("div").removeClass("show-all-borders");
+      $("#show-all-borders").find("article").removeClass("show-all-borders");
+      $("#show-all-borders").find("a").css("display", "none");
+    } else {
+      $("#show-all-borders").find("div").addClass("show-all-borders");
+      $("#show-all-borders").find("article").addClass("show-all-borders");
+      $("#show-all-borders").find("a").css("display", "block");
+    }
+  }
+  function showSlide(event) {
+    $(event).children().eq(1).fadeIn("fast");
+  }
+  function hideSlide(event) {
+    $(event).children().eq(1).fadeOut("fast");
+  }
+  function showDetails(event) {
+    $("#slide-content span").siblings().remove();
+    var _this = $(event);
+    let which_img = _this.prev().attr("src").split("/");
+    let sub = which_img[5].split(".jpg")[0];
+    which_img = which_img[4] + "/" + which_img[5].split(".")[0];
+    console.log(which_img); /* Support Vector Machines (1) Linear SVMs/263 */
+    $.ajax({
+      url: '/get_text/',
+      type: 'post',
+      data: {
+        'find_text': which_img
+      },
+      success: function (data) {
+        var data = JSON.parse(data)
+        console.log(data);
+        $.each(data, function (key, value) {
+          console.log(key + ": " + value);
+          console.log(sub);
+          if (key == sub) {
+            let insertHTML = '<p class="card-text">' + value + '</p>';
+            $("#slide-content span").before(insertHTML);
+          }
+        });
+      }
+    });
+    imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
+  }
+  function imgShow(outerdiv, innerdiv, bigimg, _this) {
+    var src = _this.prev().attr("src");
+    $(bigimg).attr("src", src);
+    $("#goto-v").attr("src", src);
+    $("<img/>").attr("src", src).on("load", function () {
+      $(innerdiv).css({ "top": "10%", "left": "10%" });
+      $(outerdiv).fadeIn("fast");
+    });
+    $(outerdiv).click(function () {
+      $(this).fadeOut("fast");
+    });
+  }
+  function posterTOSlide(event) {
+    let timeP = $(event).attr("time-data")
+    $("#goto-next").click();
+    $(".bd-placeholder-img").each(function (index) {
+      if (Math.round(timeP) == Math.round(Number($(this).attr("src").split("/")[5].split(".jpg")[0]))) {
+        let a = $(this).parent().attr("id").split("c")[1];
+        let b = "." + a;
+        $(b).click();
+      } else {
+        console.log("=========");
+      }
+    });
+  }
+  /* function changeImage(src) {
+      let image_path = $(src).attr("src");
+      $(src).parents("#collapseExample").eq(0).prev().prev().children().children().children().attr("src", image_path);
+
+  }
+  function cutSlides(current) {
+      let to_cut = $(current).parents("div.col").eq(0).siblings();
+      let current_line = $(to_cut).parents("div.container-fluid").eq(0);
+      let a = current_line.after($("#each-line").eq(0).clone());
+      let new_line = a.next().children().eq(2).children(1);
+      new_line.empty();
+      new_line.append(to_cut);
+      let new_image = $(current_line).next().children().eq(2).find("img").eq(0).attr("src");
+      current_line.next().find("img").eq(0).attr("src", new_image);
+      current_line.next().find("button.btn-outline-primary").eq(0).prop("disabled", false);
+  }
+  function merge(current) {
+      let current_line = $(current).parent().parent();
+      let to_merge = $(current).parent().next().children().children();
+      current_line.prev().children().eq(2).children().append(to_merge);
+      current_line.empty()
+      let s = "s"
+  }
+  function delete_line(current) {
+      $(current).parents("div.container-fluid").eq(0).empty();
+  } */
+  function setCurTime(img) {
+    let myVid = $('#video');
+    let timestamp = $(img).attr("src").split("/")[5].split(".")[0];
+    myVid.get(0).currentTime = timestamp;
+    /* alert(timestamp); */
+    /* alert(myVid.get(0).currentTime);
+    myVid.get(0).currentTime=10 */
+  }
+
+  /* response.setHeader("Cache-Control", "max-age=31536000, must-revalidate");
+     response.setHeader("Content-Length", file.length() + "");
+     if (fileName.contains(".mp4")) {
+          response.setContentType("video/mpeg4");
+  } */
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-touch="false" data-bs-interval="false">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true"
+      aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner" style="width: 80%; margin-left: auto; margin-right: auto;">
+    {% comment %} ==============================Video Layer========================================== {% endcomment %}
+    <div class="carousel-item">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Video Layer</h1>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <video id="video" src="{{video.id}}/mp4/?path=media/{{video.v_file}}" controls="controls"
+              ontimeupdate="timeTOSlide(this)" style="width:100%; object-fit: fill">
+            </video>
+          </div>
+          <main class="col-md-6 ms-sm-auto col-lg-6 px-md-4">
+            <div class="album py-5 bg-light">
+              <div class="container">              
+                <div class="row" style="margin-bottom: 15px;">
+                  <div class="col-md-9">Slides:</div>
+                  <div class="col-md-3"></div>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3 overflow-auto" data-bs-spy="scroll"
+                  data-bs-target="#navbar-example3" data-bs-offset="0" tabindex="0" style="height: 600px;">
+                  {% for slide in video.slides %}
+                  <div class="col">
+                    <div class="card shadow-sm" id="silde_pic{{forloop.counter0}}" onmouseover="showSlide(this)"
+                      onmouseout="hideSlide(this)">
+                      <img class="bd-placeholder-img card-img-top" width="100%" src="{{slide}}" alt="..."
+                        onclick="setCurTime(this)">
+                      <a onclick="showDetails(this)" href="#"
+                        style="position:absolute;right:10px;top:10px;display:none;text-decoration:none">Detail</a>
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div id="outerdiv"
+                    style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:2;height:100%;display:none;">
+                    <div id="innerdiv" style="position:absolute;width: 85%;top: 10%;left: 10%;">
+                      <div class="card mb-3">
+                        <div class="row g-0">
+                          <div class="col-md-8">
+                            <img id="bigimg" src="" class="img-fluid rounded-start" alt="...">
+                          </div>
+                          <div class="col-md-4">
+                            <div class="card-body">
+                              <h5 class="card-title">Subtitle in slide:</h5>
+                              <div id="slide-content" class="border-bottom">
+                                <span></span>
+                              </div>
+                              <p id="goto-v" class="card-text" onclick="setCurTime(this)" src=""><a href="#">goto
+                                  video</a></p>
+                              <p class="card-text" onclick="gotoPoster()"><a href="#">goto poster</a></p>
+                              <p class="card-text"><small class="text-muted"></small></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+      <div class="carousel-caption d-none d-md-block" style="position: static;">
+        <h5>Video Layer</h5>
+        <p></p>
+      </div>
+
+    </div>
+    {% comment %} ==============================Poster Layer========================================== {% endcomment %}
+    <div class="carousel-item active">
+      <div class="container">
+        <header class="blog-header py-3">
+          <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-12 border-bottom">
+              <h1 class="h2">Poster Layer</h1>
+            </div>
+          </div>
+        </header>
+
+        <main class="container rounded" style="margin: 0 auto;">
+          <div class="row mb-4"
+            style="text-align: center;background-color: #015bbb;padding: 1.5rem;margin-bottom:-1.5rem!important;">
+            <div class="col-md-12 px-0" style="border-bottom: dashed white 1px;">
+              <h1 contenteditable="true" class="text-white"
+                style="text-align: center; font-size: 100%">
+                {{video.title}}</h1>
+            </div>
+          </div>
+
+
+          <div id="show-all-borders" class="row g-5" style="width: 90%;margin: 0 auto;">
+            {% for key,value in video.summerized.items %}
+            {% if forloop.counter == 1 %}
+            <div id="has_class" class="col-md-6" style="border-right: 3px dashed #d9e1e8;">
+              <article class="blog-post float-start" style="border-bottom: 3px dashed #d9e1e8;">
+                <strong class="pb-4 mb-4" onclick="a(c=2)"
+                  style="color: #015bbb;font-size: 1.45rem;white-space: nowrap;">{{key}}</strong>
+                <br><br>
+                <div class="row" style="position:relative;">
+                  <img id="slide_img" src="{{value.1}}" class="img-fluid rounded-start rounded-end float-start"
+                    alt="No pic" style="margin-right: 10px;width: 100%;height: 50%;margin-bottom: 10px" onerror="this.style.display='none'">
+                  <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions" href="#"
+                    style="position:absolute;right:10px;top:10px;display:none;text-decoration:none">Detail</a>
+                </div>
+                <div class="row" style="position:relative;">
+                  <p contenteditable="true" style="color: #67696cd4;">{{value.0}}</p>
+                </div>
+              </article>
+              {% elif forloop.counter <= 3 %} <article class="blog-post float-start"
+                style="border-bottom: 3px dashed #d9e1e8;">
+                <strong class="pb-4 mb-4" contenteditable="true"
+                  style="color: #015bbb;font-size: 1.45rem;white-space: nowrap;">{{key}}</strong>
+                <br><br>
+                <div class="col" style="position:relative;">
+                  <img id="slide_img" src="{{value.1}}" class="img-fluid rounded-start rounded-end float-start"
+                    alt="No pic" style="margin-right: 10px;width: 50%;height: 50%;margin-bottom: 10px" onerror="this.style.display='none'">
+                  <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions" href="#"
+                    style="position:absolute;right:10px;top:10px;display:none;text-decoration:none">Detail</a>
+                </div>
+                <div class="col" style="position:relative;">
+                  <p contenteditable="true" style="color: #67696cd4;">{{value.0}}</p>
+                </div>
+                <!--                 <button class="btn btn-primary float-end" type="button" data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Select
+                  Image</button> -->
+                </article>
+                {% elif forloop.counter == 4 %}
+            </div>
+            <div class="col-md-6">
+              <article class="blog-post float-start" style="border-bottom: 3px dashed #d9e1e8;">
+                <strong class="pb-4 mb-4" contenteditable="true"
+                  style="color: #015bbb;font-size: 1.45rem;white-space: nowrap;">{{key}}</strong>
+                <br><br>
+                <div class="row" style="position:relative;">
+                  <img id="slide_img" src="{{value.1}}" class="img-fluid rounded-start rounded-end float-start"
+                    alt="No pic" style="margin-right: 10px;width: 100%;height: 50%;margin-bottom: 10px" onerror="this.style.display='none'">
+                  <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions" href="#"
+                    style="position:absolute;right:10px;top:10px;display:none;text-decoration:none">Detail</a>
+                </div>
+                <div class="row" style="position:relative;">
+                  <p contenteditable="true" style="color: #67696cd4;">{{value.0}}</p>
+                </div>
+                <div class="row" style="position:relative;">
+                  <img id="slide_img" src="{{value.2}}" class="img-fluid rounded-start rounded-end float-start"
+                    alt="No pic" style="margin-right: 10px;width: 100%;height: 50%;margin-bottom: 10px" onerror="this.style.display='none'">
+                  <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions" href="#"
+                    style="position:absolute;right:10px;top:10px;display:none;text-decoration:none">Detail</a>
+                </div>
+
+              </article>
+              {% elif forloop.counter > 4 %}
+              <article class="blog-post float-start" style="border-bottom: 3px dashed #d9e1e8;">
+                <strong class="pb-4 mb-4" contenteditable="true"
+                  style="color: #015bbb;font-size: 1.45rem;white-space: nowrap;">{{key}}</strong>
+                <br><br>
+                <div class="col" style="position:relative;">
+                  <img id="slide_img" src="{{value.1}}" class="img-fluid rounded-start rounded-end float-start"
+                    alt="No pic" style="margin-right: 10px;width: 50%;height: 50%;margin-bottom: 10px" onerror="this.style.display='none'">
+                  <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                    aria-controls="offcanvasWithBothOptions" href="#"
+                    style="position:absolute;right:10px;top:10px;display:none;text-decoration:none">Detail</a>
+                </div>
+                <div class="col" style="position:relative;">
+                  <p contenteditable="true" style="color: #67696cd4;">{{value.0}}</p>
+                </div>
+              </article>
+              {% elif forloop.counter == 6 %}
+            </div>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+
+          </div>
+        </main>
+        <div class="carousel-caption d-none d-md-block" style="position: static;">
+          <h5>Poster Layer</h5>
+          <p></p>
+        </div>
+      </div>
+      {% comment %} ==============================END========================================== {% endcomment %}
+    </div>
+    <button id="goto-next" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+      data-bs-slide="prev" style="width: 5%; position: fixed;">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next"
+      style="width: 5%; position: fixed;">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {% endblock %}

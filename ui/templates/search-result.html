@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block js_content %}
+<script>
+    $(document).ready(function () {
+        $("main").find("p").each(function () {
+            if ($(this).is("#audio_script_brief")) {
+                $(this).html($(this).text());
+            };
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <main>
+                <p class="card-text" id="audio_script_brief">
+                    {{a}}
+                </p>
+                {% for video in videos %}
+                <div class="card mb-3" style="max-width: 100%;">
+                    <div class="row g-0" style="align-items: center;">
+                        <div class="col-md-5" id="card-image">
+                            <img src="..\media\lecture_video\{{video.title}}.jpg" class="img-fluid rounded-start"
+                                alt="...">
+                            <div style="margin-top: -22px;margin-left: 10px;">
+                                <p class="card-text"><small class="text-muted">{{video.video_time}}</small></p>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'video:detail' video.id %}" style="text-decoration:none"
+                                        class="btn-outline-secondary">{{video.title}}
+                                    </a>
+                                </h5>
+                                <p class="card-text" id="audio_script_brief">
+                                    {{video.audio_script_brief}}
+                                </p>
+                                {% comment %} <div class="row">
+                                    <div class="col-md-4">
+                                        <img src="..\media\{{video.a}}"
+                                            class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img src="..\media\{{video.b}}"
+                                            class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <img src="..\media\{{video.c}}"
+                                            class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                </div> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </main>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+{% endblock %}
